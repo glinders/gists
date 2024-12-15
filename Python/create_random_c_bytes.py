@@ -7,12 +7,11 @@ def print_as_c(random_bytes):
     # first convert to chunks of bytes
     chunks = [random_bytes[index:index+chunk_size] for index in range(0, len(random_bytes), chunk_size)]
     chunck_len = len(chunks)
-    print(chunks)  # todo:test
     indent = 4
     for index, chunk in enumerate(chunks):
         print(' ' * indent, end='')
         for byte in chunk:
-            print(f'{byte}, ', end='')
+            print(f'0x{byte}, ', end='')
         if index == chunck_len - 1:
             print('')
         else:
@@ -28,12 +27,9 @@ def main(nbytes: int = 64, non_zero: bool = False):
     random_bytes_string = str(random.randbytes(nbytes).hex())
     # split string into bytes
     random_bytes = re.findall('..', random_bytes_string)
-    print(f'{random_bytes=}')  # todo:test
     # replace zeroes
     if non_zero:
         random_bytes = [byte if byte != '00' else get_non_zero_byte() for byte in random_bytes]
-
-    print(f'{random_bytes=}')  # todo:test
     print_as_c(random_bytes)
 
 
